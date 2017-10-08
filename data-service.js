@@ -11,15 +11,17 @@ module.exports.initialize = function(){
                 if(err) 
                 {
                     throw err;
-                    employees = JSON.parse(data);
                 }
+                    employees = JSON.parse(data);
+                
             });
             fs.readFile('./data/departments.json', function(err,data){
                 if(err) 
                 {
                     throw err;
-                    employees = JSON.parse(data);
                 }
+                    employees = JSON.parse(data);
+                
             });
         }
         
