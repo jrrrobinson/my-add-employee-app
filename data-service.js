@@ -7,21 +7,19 @@ module.exports.initialize = function(){
     return new Promise(function(resolve,reject){
         try
         {
-            fs.readFile('./data/employees.json', function(err, data){
+            fs.readFile('data/employees.json', function(err, data){
                 if(err) 
                 {
                     throw err;
-                }
                     employees = JSON.parse(data);
-                
+                }
             });
-            fs.readFile('./data/departments.json', function(err,data){
+            fs.readFile('data/departments.json', function(err,data){
                 if(err) 
                 {
                     throw err;
-                }
                     employees = JSON.parse(data);
-                
+                }
             });
         }
         

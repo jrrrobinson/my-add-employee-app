@@ -11,7 +11,7 @@
 *
 ***********************************************************************/ 
 
-var dataServ = require("./data-service.js");
+var dataServ = require("data-service.js");
 
 var express = require("express");
 var app = express();
