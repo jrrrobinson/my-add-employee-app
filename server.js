@@ -135,3 +135,5 @@ app.post("/employee/update", (req, res) => {
 app.use((req, res) => {
     res.status(404).send("Sorry!!!!!!!>>>Page Not Found! <<<:(");
 });
+
+app.listen(HTTP_PORT, onHttpStart);
