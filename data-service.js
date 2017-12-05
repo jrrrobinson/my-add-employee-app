@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-var employess = []; //global array
+var employees = []; //global array
 var departments = []; //global array
 var empCount = 0;
 
@@ -8,47 +8,28 @@ module.exports.initialize = () => {
     return new Promise((resolve, reject) => {
         try {
             fs.readFile('./data/employees.json', (err, data) => {
-                if (err) throw err;
-                employess = JSON.parse(data);
-                empCount = employess.length;
+                if (err) 
+                    throw err;
+                employees = JSON.parse(data);
+                empCount = employees.length;
             });
             fs.readFile('./data/departments.json', (err, data) => {
-                if (err) throw err;
+                if (err) 
+                    throw err;
                 departments = JSON.parse(data);
             });
         } catch (ex) {
             reject("Unable to read file!");
         }
-        resolve("Good!!! It's successfully read JSON file.");
+        resolve("Excellent - The JSON file is successfully read!");
     });
 }
-
-// alternative solution
-// // for initialize JSON file:
-// module.exports.initialize = function() {
-//     return new Promise(function(resolve, reject) {
-//         fs.readFile('./data/departments.json', function(err, data) {
-//             if (err) {
-//                 reject("Can Not Open Employees.json File");
-//             } else {
-//                 employess = JSON.parse(data);
-//                 fs.readFile('./data/employees.json', function(err, data) {
-//                     if (err) {
-//                         reject("Can Not Open Department.json File ");
-//                     } else {
-//                         departments = JSON.parse(data);
-//                     }
-//                 });
-//             }
-//         });
-//     });
-// }
 
 module.exports.getAllEmployees = () => {
     var arryAllEmployees = [];
     return new Promise((resolve, reject) => {
-        for (var i = 0; i < employess.length; i++) {
-            arryAllEmployees.push(employess[i]);
+        for (var i = 0; i < employees.length; i++) {
+            arryAllEmployees.push(employees[i]);
         }
         if (arryAllEmployees.length == 0) {
             reject("No Result Returned!!!");
@@ -60,9 +41,9 @@ module.exports.getAllEmployees = () => {
 module.exports.getEmployeesByStatus = (status) => {
     var arryByStatus = [];
     return new Promise((resolve, reject) => {
-        for (let i = 0; i < employess.length; i++) {
-            if (employess[i].status == status) {
-                arryByStatus.push(employess[i]);
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].status == status) {
+                arryByStatus.push(employees[i]);
             }
         }
         if (arryByStatus.length == 0) {
@@ -75,13 +56,13 @@ module.exports.getEmployeesByStatus = (status) => {
 module.exports.getEmployeesByDepartment = (department) => {
     var arryByDepartment = [];
     return new Promise((resolve, reject) => {
-        for (let i = 0; i < employess.length; i++) {
-            if (employess[i].department == department) {
-                arryByDepartment.push(employess[i]);
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].department == department) {
+                arryByDepartment.push(employees[i]);
             }
         }
         if (arryByDepartment.length == 0) {
-            reject("No Result Returned!!!");
+            reject("No Result Returned!");
         }
         resolve(arryByDepartment);
     });
@@ -91,13 +72,13 @@ module.exports.getEmployeesByManager = (manager) => {
     var arrayGetEmployeesByMannager = [];
 
     return new Promise((resolve, reject) => {
-        for (let i = 0; i < employess.length; i++) {
-            if (employess[i].employeeManagerNum == manager) {
-                arrayGetEmployeesByMannager.push(employess[i]);
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].employeeManagerNum == manager) {
+                arrayGetEmployeesByMannager.push(employees[i]);
             }
         }
         if (arrayGetEmployeesByMannager.length == 0) {
-            reject("No Result Returned!!!");
+            reject("No Result Returned!");
         }
         resolve(arrayGetEmployeesByMannager);
     });
@@ -105,24 +86,26 @@ module.exports.getEmployeesByManager = (manager) => {
 
 module.exports.getEmployeeByNum = (num) => {
     return new Promise((resolve, reject) => {
-        for (let j = 0; j < employess.length; j++) {
-            if (employess[j].employeeNum == num) {
-                resolve(employess[j]);
+        for (let j = 0; j < employees.length; j++) {
+            if (employees[j].employeeNum == num) {
+                resolve(employees[j]);
             }
         }
-        reject("No Result Returned!!!");
+        reject("No Result Returned!");
     });
 }
 
 module.exports.getManagers = () => {
     var arryGetManagers = [];
     return new Promise((resolve, reject) => {
-        if (employess.length == 0) {
-            reject("No Result Returned!!!");
-        } else {
-            for (var q = 0; q < employess.length; q++) {
-                if (employess[q].isManager == true) {
-                    arryGetManagers.push(employess[q]);
+        if (employees.length == 0) {
+            reject("No Result Returned!");
+        } 
+        
+        else {
+            for (var q = 0; q < employees.length; q++) {
+                if (employees[q].isManager) {
+                    arryGetManagers.push(employees[q]);
                 }
             }
             if (arryGetManagers.length == 0) {
@@ -136,14 +119,16 @@ module.exports.getManagers = () => {
 module.exports.getDepartments = () => {
     var arryGetDepartments = [];
     return new Promise((resolve, reject) => {
-        if (employess.length == 0) {
-            reject("No Result Returned!!!");
-        } else {
+        if (employees.length == 0) {
+            reject("No Result Returned!");
+        } 
+
+        else {
             for (var v = 0; v < departments.length; v++) {
-                arryGetDepartments.push(departments[v]);
+                arryGetDepartments.push(employees[v]);
             }
             if (arryGetDepartments.length == 0) {
-                reject("No Result Return!!!");
+                reject("No Result Returned!");
             }
         }
         resolve(arryGetDepartments);
@@ -153,26 +138,27 @@ module.exports.getDepartments = () => {
 module.exports.addEmployee = (employeeData) => {
     employeeData.isManager = (employeeData.isManager) ? true : false;
     employeeData.employeeNum = ++empCount;
+
     return new Promise((resolve, reject) => {
-        employess.push(employeeData);
-        if (employess.length == 0) {
+        employees.push(employeeData);
+        if (employees.length == 0) {
             reject("No Result Returned!");
         }
-        resolve(employess);
+        resolve(employees);
     });
 }
 
 module.exports.updateEmployee = (employeeData) => {
     employeeData.isManager = (employeeData.isManager) ? true : false;
     return new Promise((resolve, reject) => {
-        for (let i = 0; i < employess.length; i++) {
-            if (employess[i].employeeNum == employeeData.employeeNum) {
-                employess.splice(employeeData.employeeNum - 1, 1, employeeData);
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].employeeNum == employeeData.employeeNum) {
+                employees.splice(employeeData.employeeNum - 1, 1, employeeData);
             }
         }
-        if (employess.length == 0) {
-            reject("No Result Returned!!!");
+        if (employees.length == 0) {
+            reject("No Result Returned!");
         }
-        resolve(employess);
+        resolve(employees);
     });
 }
