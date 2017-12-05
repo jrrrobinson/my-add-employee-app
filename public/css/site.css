@@ -9,11 +9,6 @@ h1
     font-size: 4em;
 }
 
-a:hover 
-{ 
-    background-color: black;
-}
-
 body{
     margin: 0;
     width:100%;
