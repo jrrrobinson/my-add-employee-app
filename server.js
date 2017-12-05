@@ -85,7 +85,7 @@ app.get("/employee/:empNum", (req, res) => {
     data_service.getEmployeeByNum(req.params.empNum).then((data) => {
         res.render("employee", { data: data });
     }).catch((err) => {
-        res.status(404).send("Employee Not Found!!!");
+        res.status(404).send("Employee Not Found!");
     });
 });
 
@@ -133,7 +133,7 @@ app.post("/employee/update", (req, res) => {
 });
 
 app.use((req, res) => {
-    res.status(404).send("Sorry! Page not found");
+    res.status(404).send("Sorry - Page not found!");
 });
 
 app.listen(HTTP_PORT, onHttpStart);
