@@ -29,6 +29,7 @@ module.exports.getAllEmployees = () => {
         for (var i = 0; i < employees.length; i++) {
             arryAllEmployees.push(employees[i]);
         }
+        
         if (arryAllEmployees.length == 0) {
             reject("No Result Returned");
         }
@@ -44,6 +45,7 @@ module.exports.getEmployeesByStatus = (status) => {
                 arryByStatus.push(employees[i]);
             }
         }
+
         if (arryByStatus.length == 0) {
             reject("No Result Returned");
         }
@@ -59,6 +61,7 @@ module.exports.getEmployeesByDepartment = (department) => {
                 arryByDepartment.push(employees[i]);
             }
         }
+
         if (arryByDepartment.length == 0) {
             reject("No Result Returned");
         }
@@ -75,6 +78,7 @@ module.exports.getEmployeesByManager = (manager) => {
                 arrayGetEmployeesByMannager.push(employees[i]);
             }
         }
+
         if (arrayGetEmployeesByMannager.length == 0) {
             reject("No Result Returned");
         }
@@ -136,6 +140,7 @@ module.exports.getDepartments = () => {
 module.exports.addEmployee = (employeeData) => {
     employeeData.isManager = (employeeData.isManager) ? true : false;
     employeeData.employeeNum = ++empCount;
+
     return new Promise((resolve, reject) => {
         employees.push(employeeData);
         if (employees.length == 0) {
