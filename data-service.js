@@ -19,7 +19,7 @@ module.exports.initialize = () => {
         } catch (ex) {
             reject("Unable to read file!");
         }
-        resolve("Good!!! It's successfully read JSON file.");
+        resolve("Excellent - the JSON file is successfully read!");
     });
 }
 
