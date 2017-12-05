@@ -2,13 +2,15 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var data_service = require("./data-service.js");
+
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
-var HTTP_PORT = process.env.PORT || 8080;
+const HTTP_PORT = process.env.PORT || 8080;
 
 function onHttpStart() {
     console.log("Express http server listening on: " + HTTP_PORT);
+
     return new Promise((res, req) => {
         data_service.initialize().then((data) => {
             console.log(data)
@@ -21,30 +23,28 @@ function onHttpStart() {
 // Load CSS file
 app.use(express.static('public'));
 
+// ensures that the bodyParser middleware will work correctly
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.engine(".hbs", exphbs({
-    extname: ".hbs",
-    defaultLayout: 'layout',
-    helpers: {
-        equal: (lvalue, rvalue, options) => {
-            if (arguments.length < 3)
-                throw new Error("Handlebars Helper equal needs 2 parameters");
-            if (lvalue != rvalue) {
-                return options.inverse(this);
-            } else {
-                return options.fn(this);
-            }
-        }
+  extname: ".hbs",
+  defaultLayout: 'layout',
+  helpers: {
+    equal: function (lvalue, rvalue, options) {
+      if (arguments.length < 3)
+        throw new Error("Handlebars Helper equal needs 2 parameters");
+      if (lvalue != rvalue) {
+        return options.inverse(this);
+      } else {
+        return options.fn(this);
+      }
     }
+  }
 }));
 app.set("view engine", ".hbs");
 
-// alternative method.
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// setup a 'route' to listen on the default url path (http://localhost)
+// setup 'route' to listen on the default url path
 app.get("/", (req, res) => {
-    //res.send("Hello World<br /><a href='/about'>Go to the about page</a>");
     res.render("home");
 });
 
@@ -85,7 +85,7 @@ app.get("/employee/:empNum", (req, res) => {
     data_service.getEmployeeByNum(req.params.empNum).then((data) => {
         res.render("employee", { data: data });
     }).catch((err) => {
-        res.status(404).send("Employee Not Found!!!");
+        res.status(404).send("Employee Not Found!");
     });
 });
 
@@ -133,7 +133,7 @@ app.post("/employee/update", (req, res) => {
 });
 
 app.use((req, res) => {
-    res.status(404).send("Sorry!!!!!!!>>>Page Not Found! <<<:(");
+    res.status(404).send("Sorry - Page not found");
 });
 
 app.listen(HTTP_PORT, onHttpStart);
