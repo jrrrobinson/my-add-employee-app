@@ -2,7 +2,9 @@ var fs = require("fs");
 
 var employees = []; //global array
 var departments = []; //global array
-var empCount = 0;
+var empCount = 0; //emp counter
+
+//
 
 module.exports.initialize = () => {
     return new Promise((resolve, reject) => {
