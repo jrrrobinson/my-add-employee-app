@@ -1,6 +1,6 @@
 This "Add Employee" App was completed in December 2017. The final deliverable is a combination of HTML, CSS, JS, JSON and handlebars code.
 
-This app allows the user to add a new employee to an existing array of employees. It was specifically designed for managers or HR people who would want to add a new user to an already existing database. Ultimately, this is the feature that separates this app from the React App that is also featured on my GitHub. Updates to the existing data are possible and encouraged with this App.
+This app allows the user to add a new employee to an existing array of employees. It was specifically designed for managers or HR people who would want to add a new employee to an already existing database. Ultimately, this is the feature that separates this app from the React App that is also featured on my GitHub. Updates to the existing data are possible and encouraged with this App.
 
 Once the button for "Add New Employee" is clicked, the user must fill out a form. A combination of textboxes, ladders, and checked/unchecked buttons are provided where appropriate to make the user experience more enjoyable, without being too distracting. Validation ensures that the information entered is correct and complete before adding the new employee to the database. 
 
